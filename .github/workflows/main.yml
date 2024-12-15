@@ -7,22 +7,9 @@ on:
   pull_request:
 
 jobs:
-  packages:
-    name: Packages
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-node@v4
-        with:
-          node-version-file: .node-version
-          cache: npm
-      - run: npm ci
-
   build:
     name: Build
     runs-on: ubuntu-latest
-    needs:
-      - packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -37,8 +24,6 @@ jobs:
   lint:
     name: Lint
     runs-on: ubuntu-latest
-    needs:
-      - packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -51,8 +36,6 @@ jobs:
   format:
     name: Format
     runs-on: ubuntu-latest
-    needs:
-      - packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
@@ -65,8 +48,6 @@ jobs:
   typeCheck:
     name: Type Check
     runs-on: ubuntu-latest
-    needs:
-      - packages
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
