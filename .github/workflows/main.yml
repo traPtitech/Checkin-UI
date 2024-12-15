@@ -17,6 +17,7 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
+
   build:
     name: Build
     runs-on: ubuntu-latest
@@ -29,13 +30,10 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - uses: actions/download-artifact@v4
-        with:
-          name: apis
-          path: ./src/lib/apis/generated
       - run: npm run build
         env:
           NODE_ENV: production
+
   lint:
     name: Lint
     runs-on: ubuntu-latest
@@ -48,11 +46,8 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - uses: actions/download-artifact@v4
-        with:
-          name: apis
-          path: ./src/lib/apis/generated
       - run: npm run lint:nofix
+
   format:
     name: Format
     runs-on: ubuntu-latest
@@ -65,11 +60,8 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - uses: actions/download-artifact@v4
-        with:
-          name: apis
-          path: ./src/lib/apis/generated
       - run: npm run format:nofix
+
   typeCheck:
     name: Type Check
     runs-on: ubuntu-latest
@@ -81,9 +73,4 @@ jobs:
         with:
           node-version-file: .node-version
           cache: npm
-      - run: npm ci
-      - uses: actions/download-artifact@v4
-        with:
-          name: apis
-          path: ./src/lib/apis/generated
       - run: npm run type-check
