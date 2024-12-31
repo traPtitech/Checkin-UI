@@ -8,12 +8,12 @@ export const useModal = () => {
   const closeModal = () => {
     shouldShowModal.value = false
   }
-  const handleOpenModal = () => {
+  const toggleModal = () => {
     if (!shouldShowModal.value) {
       openModal()
     } else {
       closeModal()
     }
   }
-  return { shouldShowModal, openModal, closeModal, handleOpenModal }
+  return { shouldShowModal, openModal, closeModal, toggleModal }
 }
