@@ -9,6 +9,10 @@ const route = useRoute()
 <template>
   <nav class="flex flex-col gap-2 py-2 pr-2">
     <SideNavigationButton :is-here="route.path === '/'" path="/" text="home" />
-    <SideNavigationButton :is-here="route.path === '/about'" path="/about" text="about" />
+    <SideNavigationButton
+      :is-here="route.path === '/membership'"
+      path="/membership"
+      text="membership"
+    />
   </nav>
 </template>
