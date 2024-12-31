@@ -7,7 +7,7 @@ const emit = defineEmits<{
 <template>
   <teleport to="body">
     <div
-      className="z-50 fixed top-0 left-0 h-full w-full bg-background-default-secondary/50"
+      class="z-50 fixed top-0 left-0 size-full bg-background-default-secondary/50"
       @click.self="emit('closeModal')"
     >
       <slot />

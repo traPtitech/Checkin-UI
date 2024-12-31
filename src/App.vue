@@ -4,8 +4,8 @@ import { RouterLink, RouterView } from 'vue-router'
 
 import { useModal } from '@/components/modal/composables/useModal'
 import ModalWrapper from '@/components/modal/ModalWrapper.vue'
-import PageNavigation from '@/components/navigation/PageNavigation.vue'
-import SideDrawer from '@/components/navigation/SideDrawer.vue'
+import SideDrawer from '@/layouts/SideDrawer.vue'
+import SideNavigation from '@/layouts/SideNavigation.vue'
 
 const { shouldShowModal, closeModal, handleOpenModal } = useModal()
 </script>
@@ -23,7 +23,7 @@ const { shouldShowModal, closeModal, handleOpenModal } = useModal()
     <SideDrawer />
   </ModalWrapper>
   <div class="flex">
-    <PageNavigation class="hidden md:block" />
+    <SideNavigation class="hidden md:block" />
     <RouterView />
   </div>
 </template>
