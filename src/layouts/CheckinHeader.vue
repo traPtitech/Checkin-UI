@@ -17,8 +17,11 @@ const { shouldShowModal, closeModal, toggleModal } = useModal()
     <RouterLink to="/">
       <img alt="Vue logo" class="size-8" src="@/assets/logo.svg" />
     </RouterLink>
-    <ModalWrapper v-if="shouldShowModal" @close-modal="closeModal">
-      <SideNavigation class="fixed left-0 top-12 h-full w-1/2 bg-background-default-default" />
+    <ModalWrapper v-if="shouldShowModal" @click-outside="closeModal">
+      <SideNavigation
+        class="fixed left-0 top-12 h-full w-1/2 bg-background-default-default"
+        @click-link="closeModal"
+      />
     </ModalWrapper>
   </header>
 </template>

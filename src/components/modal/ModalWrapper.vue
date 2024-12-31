@@ -1,6 +1,6 @@
 <script setup lang="ts">
 const emit = defineEmits<{
-  (e: 'closeModal'): void
+  (e: 'clickOutside'): void
 }>()
 </script>
 
@@ -8,7 +8,7 @@ const emit = defineEmits<{
   <teleport to="body">
     <div
       class="z-50 fixed top-0 left-0 size-full bg-background-default-secondary/50"
-      @click.self="emit('closeModal')"
+      @click.self="emit('clickOutside')"
     >
       <slot />
     </div>
