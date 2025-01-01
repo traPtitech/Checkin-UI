@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { useRoute } from 'vue-router';
+import { useRoute } from 'vue-router'
 
-import MemberShipPageUserTypeSelect from './MemberShipPageUserTypeSelect.vue';
+import MemberShipPageUserTypeSelect from './MemberShipPageUserTypeSelect.vue'
 
 const route = useRoute()
 </script>
