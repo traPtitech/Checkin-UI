@@ -1,4 +1,4 @@
-import homePage from '@/pages/homePage.vue'
+import HomePage from '@/pages/HomePage.vue'
 import { createRouter, createWebHistory } from 'vue-router'
 
 const router = createRouter({
@@ -7,7 +7,7 @@ const router = createRouter({
     {
       path: '/',
       name: 'home',
-      component: homePage,
+      component: HomePage,
     },
     {
       path: '/membership',
@@ -15,7 +15,7 @@ const router = createRouter({
       // route level code-splitting
       // this generates a separate chunk (About.[hash].js) for this route
       // which is lazy-loaded when the route is visited.
-      component: () => import('@/pages/membership/membershipPage.vue'),
+      component: () => import('@/pages/membership/MembershipPage.vue'),
     },
   ],
 })
