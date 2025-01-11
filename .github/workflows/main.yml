@@ -17,13 +17,12 @@ jobs:
           node-version-file: .node-version
           cache: npm
       - run: npm ci
-      - run: mkdir -p ./temp/generated
-      - run: npm run gen-api -- --output ./temp/generated
+      - run: npm run gen-api
       - name: Check for differences in generated APIs
         run: |
-          diff -qr ./src/lib/apis/generated ./temp/generated || {
-            echo "Generated APIs are outdated or modified. Run 'npm run gen-api' and commit the changes.";
-            exit 1;
+          git diff --exit-code ./src/lib/apis/generated || {
+            echo "Generated APIs are outdated or modified. Please run 'npm run gen-api' and commit the changes."
+            exit 1
           }
 
   build:
