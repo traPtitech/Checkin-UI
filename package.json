@@ -12,7 +12,8 @@
     "lint": "eslint . --fix --cache",
     "lint:nofix": "eslint . --cache",
     "format": "prettier --cache --write src/",
-    "format:nofix": "prettier --cache --check src/"
+    "format:nofix": "prettier --cache --check src/",
+    "gen-api": "tsx ./scripts/generate-apis.ts"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
@@ -34,6 +35,8 @@
     "postcss": "^8.4.49",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.17",
+    "ts-morph": "^25.0.0",
+    "tsx": "^4.19.2",
     "typescript": "~5.6.3",
     "vite": "^6.0.1",
     "vite-plugin-vue-devtools": "^7.6.5",

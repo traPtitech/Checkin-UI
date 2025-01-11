@@ -30,3 +30,5 @@ coverage
 *.tsbuildinfo
 
 .eslintcache
+
+src/lib/apis/generated
