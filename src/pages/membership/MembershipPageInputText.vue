@@ -2,20 +2,18 @@
 import { onMounted, useTemplateRef } from 'vue'
 
 const model = defineModel<string>({ required: true })
-const { autoFocus, className, required, placeholder } = withDefaults(
-  defineProps<{
-    autoFocus?: boolean
-    className?: string
-    required?: boolean
-    placeholder?: string
-  }>(),
-  {
-    autoFocus: false,
-    className: 'rounded border px-1',
-    required: false,
-    placeholder: '',
-  },
-)
+const {
+  autoFocus = false,
+  className = 'rounded border px-1',
+  required = false,
+  placeholder = '',
+} = defineProps<{
+  autoFocus?: boolean
+  className?: string
+  required?: boolean
+  placeholder?: string
+}>()
+
 const inputRef = useTemplateRef('input-ref')
 
 onMounted(() => {
