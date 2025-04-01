@@ -9,6 +9,8 @@ import type {
   PostInvoiceRequest,
 } from './apis/generated/api'
 
+// TODO: mswハンドラーの妥当性の確認
+
 // Mock data
 const mockAdmins: Admin[] = [{ id: 'admin1' }, { id: 'admin2' }]
 
