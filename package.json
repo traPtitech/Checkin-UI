@@ -12,7 +12,8 @@
     "lint": "eslint . --fix --cache",
     "lint:nofix": "eslint . --cache",
     "format": "prettier --cache --write src/",
-    "format:nofix": "prettier --cache --check src/"
+    "format:nofix": "prettier --cache --check src/",
+    "gen-api": "tsx ./scripts/generate-apis.ts"
   },
   "dependencies": {
     "@heroicons/vue": "^2.2.0",
@@ -21,6 +22,7 @@
     "vue-router": "^4.4.5"
   },
   "devDependencies": {
+    "@openapitools/openapi-generator-cli": "^2.15.3",
     "@tsconfig/node22": "^22.0.0",
     "@types/node": "^22.9.3",
     "@vitejs/plugin-vue": "^5.2.1",
@@ -30,13 +32,21 @@
     "autoprefixer": "^10.4.20",
     "eslint": "^9.14.0",
     "eslint-plugin-vue": "^9.30.0",
+    "msw": "^2.7.0",
     "npm-run-all2": "^7.0.1",
     "postcss": "^8.4.49",
     "prettier": "^3.3.3",
     "tailwindcss": "^3.4.17",
+    "ts-morph": "^25.0.0",
+    "tsx": "^4.19.2",
     "typescript": "~5.6.3",
     "vite": "^6.0.1",
     "vite-plugin-vue-devtools": "^7.6.5",
     "vue-tsc": "^2.1.10"
+  },
+  "msw": {
+    "workerDirectory": [
+      "public"
+    ]
   }
 }
