@@ -10,7 +10,13 @@ export default [
 
   {
     name: 'app/files-to-ignore',
-    ignores: ['**/dist/**', '**/dist-ssr/**', '**/coverage/**'],
+    ignores: [
+      '**/dist/**',
+      '**/dist-ssr/**',
+      '**/coverage/**',
+      'src/lib/apis/generated/**',
+      'public/mockServiceWorker.js',
+    ],
   },
 
   ...pluginVue.configs['flat/essential'],
