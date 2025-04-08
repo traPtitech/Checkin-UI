@@ -1,12 +1,12 @@
 import { Configuration, CustomerApi, InvoiceApi, ListApi, AdminApi } from './generated'
 import axios, { AxiosError, AxiosResponse } from 'axios'
-import type { 
-  Customer, 
-  PostCustomerRequest, 
-  PostInvoiceRequest, 
-  Invoice, 
+import type {
+  Customer,
+  PostCustomerRequest,
+  PostInvoiceRequest,
+  Invoice,
   InvoiceDataInner,
-  GetCheckoutSessionsResponse
+  GetCheckoutSessionsResponse,
 } from './generated/api'
 
 // APIレスポンスの型を単純化するためのユーティリティタイプ
@@ -27,7 +27,7 @@ export class ApiClient {
   private static instance: ApiClient
   private config: Configuration
   private axiosInstance = axios.create()
-  
+
   // API インスタンス
   private customerApi: CustomerApi
   private invoiceApi: InvoiceApi
@@ -39,17 +39,17 @@ export class ApiClient {
     this.config = new Configuration({
       basePath: import.meta.env.VITE_API_BASE_URL || 'http://localhost',
     })
-    
+
     // 各APIクラスのインスタンスを作成
     this.customerApi = new CustomerApi(this.config, undefined, this.axiosInstance)
     this.invoiceApi = new InvoiceApi(this.config, undefined, this.axiosInstance)
     this.listApi = new ListApi(this.config, undefined, this.axiosInstance)
     this.adminApi = new AdminApi(this.config, undefined, this.axiosInstance)
-    
+
     // 共通のエラーハンドリングを設定
     this.axiosInstance.interceptors.response.use(
       (response) => response,
-      (error: AxiosError) => this.handleApiError(error)
+      (error: AxiosError) => this.handleApiError(error),
     )
   }
 
@@ -68,15 +68,15 @@ export class ApiClient {
    */
   private handleApiError(error: AxiosError): Promise<never> {
     console.error('API error:', error)
-    
+
     const apiError: ApiError = {
       message: '不明なエラーが発生しました',
-      originalError: error
+      originalError: error,
     }
-    
+
     if (error.response) {
       apiError.status = error.response.status
-      
+
       switch (error.response.status) {
         case 401:
           apiError.message = '認証エラーが発生しました'
@@ -91,14 +91,14 @@ export class ApiClient {
     } else if (error.request) {
       apiError.message = 'サーバーからの応答がありませんでした'
     }
-    
+
     return Promise.reject(apiError)
   }
 
   // --------------------------------
   // Customer API 関連メソッド
   // --------------------------------
-  
+
   /**
    * Customer情報を取得する
    */
@@ -143,7 +143,7 @@ export class ApiClient {
   // --------------------------------
   // Invoice API 関連メソッド
   // --------------------------------
-  
+
   /**
    * 請求書を作成する
    */
@@ -159,19 +159,21 @@ export class ApiClient {
   // --------------------------------
   // List API 関連メソッド
   // --------------------------------
-  
+
   /**
    * 請求書の一覧を取得する
    */
-  public async getInvoices(params: {
-    customerId?: string
-    subscriptionId?: string
-    limit?: number
-    startingAfter?: string
-    endingBefore?: string
-    status?: string
-    collectionMethod?: string
-  } = {}): Promise<Invoice> {
+  public async getInvoices(
+    params: {
+      customerId?: string
+      subscriptionId?: string
+      limit?: number
+      startingAfter?: string
+      endingBefore?: string
+      status?: string
+      collectionMethod?: string
+    } = {},
+  ): Promise<Invoice> {
     try {
       const {
         customerId,
@@ -180,9 +182,9 @@ export class ApiClient {
         startingAfter,
         endingBefore,
         status,
-        collectionMethod
+        collectionMethod,
       } = params
-      
+
       const response = await this.listApi.getInvoices(
         customerId,
         subscriptionId,
@@ -190,9 +192,9 @@ export class ApiClient {
         startingAfter,
         endingBefore,
         status as any,
-        collectionMethod as any
+        collectionMethod as any,
       )
-      
+
       return response.data
     } catch (error) {
       throw error
@@ -202,15 +204,17 @@ export class ApiClient {
   /**
    * オンライン決済ページ由来の入金一覧を取得する
    */
-  public async getCheckoutSessions(params: {
-    customerId?: string
-    subscriptionId?: string
-    limit?: number
-    startingAfter?: string
-    endingBefore?: string
-    paymentIntentId?: string
-    status?: string
-  } = {}): Promise<GetCheckoutSessionsResponse> {
+  public async getCheckoutSessions(
+    params: {
+      customerId?: string
+      subscriptionId?: string
+      limit?: number
+      startingAfter?: string
+      endingBefore?: string
+      paymentIntentId?: string
+      status?: string
+    } = {},
+  ): Promise<GetCheckoutSessionsResponse> {
     try {
       const {
         customerId,
@@ -219,9 +223,9 @@ export class ApiClient {
         startingAfter,
         endingBefore,
         paymentIntentId,
-        status
+        status,
       } = params
-      
+
       const response = await this.listApi.getCheckoutSessions(
         customerId,
         subscriptionId,
@@ -229,9 +233,9 @@ export class ApiClient {
         startingAfter,
         endingBefore,
         paymentIntentId,
-        status as any
+        status as any,
       )
-      
+
       return response.data
     } catch (error) {
       throw error
@@ -241,7 +245,7 @@ export class ApiClient {
   // --------------------------------
   // Admin API 関連メソッド
   // --------------------------------
-  
+
   /**
    * 管理者一覧を取得する
    */

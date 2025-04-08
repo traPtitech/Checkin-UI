@@ -10,14 +10,14 @@ export function useCustomerApi() {
   /**
    * Customerを検索する
    */
-  const fetchCustomer = async (params: { 
-    customerId?: string; 
-    traqId?: string; 
-    email?: string 
+  const fetchCustomer = async (params: {
+    customerId?: string
+    traqId?: string
+    email?: string
   }) => {
     isLoading.value = true
     error.value = null
-    
+
     try {
       customer.value = await apiClient.getCustomer(params)
       return customer.value
@@ -36,7 +36,7 @@ export function useCustomerApi() {
   const createCustomer = async (customerData: PostCustomerRequest) => {
     isLoading.value = true
     error.value = null
-    
+
     try {
       customer.value = await apiClient.createCustomer(customerData)
       return customer.value
@@ -54,7 +54,7 @@ export function useCustomerApi() {
   const updateCustomer = async (customerData: PostCustomerRequest) => {
     isLoading.value = true
     error.value = null
-    
+
     try {
       customer.value = await apiClient.updateCustomer(customerData)
       return customer.value
@@ -72,6 +72,6 @@ export function useCustomerApi() {
     error,
     fetchCustomer,
     createCustomer,
-    updateCustomer
+    updateCustomer,
   }
 }
