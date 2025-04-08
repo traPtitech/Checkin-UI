@@ -1,5 +1,6 @@
 import { apiClient, type ApiError } from '@/lib/apis/apiClient'
 import type { InvoiceDataInner, PostInvoiceRequest } from '@/lib/apis/generated/api'
+import { GetInvoicesStatusEnum } from '@/lib/apis/generated/api'
 import { ref, type Ref } from 'vue'
 
 export function useInvoiceApi() {
@@ -16,7 +17,7 @@ export function useInvoiceApi() {
       limit?: number
       startingAfter?: string
       endingBefore?: string
-      status?: string
+      status?: GetInvoicesStatusEnum
     } = {},
   ) => {
     isLoading.value = true
