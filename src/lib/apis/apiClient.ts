@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosResponse } from 'axios'
+import axios, { AxiosError } from 'axios'
 import { AdminApi, Configuration, CustomerApi, InvoiceApi, ListApi } from './generated'
 import type {
   Customer,
@@ -7,9 +7,6 @@ import type {
   PostCustomerRequest,
   PostInvoiceRequest,
 } from './generated/api'
-
-// APIレスポンスの型を単純化するためのユーティリティタイプ
-type UnwrapAxiosResponse<T> = T extends AxiosResponse<infer U> ? U : T
 
 // APIエラーの型定義
 export interface ApiError {

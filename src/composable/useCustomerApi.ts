@@ -1,6 +1,6 @@
-import { ref, Ref } from 'vue'
-import { apiClient, ApiError } from '@/lib/apis/apiClient'
+import { apiClient, type ApiError } from '@/lib/apis/apiClient'
 import type { Customer, PostCustomerRequest } from '@/lib/apis/generated/api'
+import { ref, type Ref } from 'vue'
 
 export function useCustomerApi() {
   const customer: Ref<Customer | null> = ref(null)
