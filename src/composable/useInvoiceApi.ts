@@ -1,6 +1,6 @@
-import { ref, Ref } from 'vue'
 import { apiClient, ApiError } from '@/lib/apis/apiClient'
-import type { Invoice, InvoiceDataInner, PostInvoiceRequest } from '@/lib/apis/generated/api'
+import type { InvoiceDataInner, PostInvoiceRequest } from '@/lib/apis/generated/api'
+import { ref, Ref } from 'vue'
 
 export function useInvoiceApi() {
   const invoices: Ref<InvoiceDataInner[] | null> = ref(null)

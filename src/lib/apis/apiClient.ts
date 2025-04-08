@@ -1,12 +1,11 @@
-import { Configuration, CustomerApi, InvoiceApi, ListApi, AdminApi } from './generated'
 import axios, { AxiosError, AxiosResponse } from 'axios'
+import { AdminApi, Configuration, CustomerApi, InvoiceApi, ListApi } from './generated'
 import type {
   Customer,
+  GetCheckoutSessionsResponse,
+  Invoice,
   PostCustomerRequest,
   PostInvoiceRequest,
-  Invoice,
-  InvoiceDataInner,
-  GetCheckoutSessionsResponse,
 } from './generated/api'
 
 // APIレスポンスの型を単純化するためのユーティリティタイプ
