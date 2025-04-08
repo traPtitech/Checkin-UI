@@ -3,6 +3,9 @@ import { AdminApi, Configuration, CustomerApi, InvoiceApi, ListApi } from './gen
 import type {
   Customer,
   GetCheckoutSessionsResponse,
+  GetCheckoutSessionsStatusEnum,
+  GetInvoicesCollectionMethodEnum,
+  GetInvoicesStatusEnum,
   Invoice,
   PostCustomerRequest,
   PostInvoiceRequest,
@@ -166,8 +169,8 @@ export class ApiClient {
       limit?: number
       startingAfter?: string
       endingBefore?: string
-      status?: string
-      collectionMethod?: string
+      status?: GetInvoicesStatusEnum
+      collectionMethod?: GetInvoicesCollectionMethodEnum
     } = {},
   ): Promise<Invoice> {
     try {
@@ -187,8 +190,8 @@ export class ApiClient {
         limit,
         startingAfter,
         endingBefore,
-        status as any,
-        collectionMethod as any,
+        status,
+        collectionMethod,
       )
 
       return response.data
@@ -208,7 +211,7 @@ export class ApiClient {
       startingAfter?: string
       endingBefore?: string
       paymentIntentId?: string
-      status?: string
+      status?: GetCheckoutSessionsStatusEnum
     } = {},
   ): Promise<GetCheckoutSessionsResponse> {
     try {
@@ -229,7 +232,7 @@ export class ApiClient {
         startingAfter,
         endingBefore,
         paymentIntentId,
-        status as any,
+        status,
       )
 
       return response.data
