@@ -22,7 +22,6 @@ const generateCmd = [
   SWAGGER_PATH,
   '-o',
   GENERATED_DIR,
-  '--enable-post-process-file',
 ]
 
 const __filename = fileURLToPath(import.meta.url)
@@ -37,7 +36,7 @@ const execAsync = promisify(exec)
   })
 
   const { stdout, stderr } = await execAsync(generateCmd.join(' '), {
-    env: { ...process.env, TS_POST_PROCESS_FILE: 'prettier --write' },
+    env: { ...process.env },
   })
   if (stderr) {
     console.error(stderr)
@@ -50,4 +49,6 @@ const execAsync = promisify(exec)
 
   // importsNotUsedAsValuesでエラーが起きるのですべてのimportに@ts-ignoreを付与する
   await addTsIgnoreToImports(GENERATED_DIR)
+
+  await execAsync(`npx prettier --write ${GENERATED_DIR}`)
 })()
