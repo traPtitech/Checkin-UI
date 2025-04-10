@@ -12,10 +12,12 @@
  * Do not edit the class manually.
  */
 
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { Configuration } from './configuration'
 // Some imports not used depending on template conditions
 // @ts-ignore
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+// @ts-ignore error happens by importsNotUsedAsValues
 import globalAxios from 'axios'
 
 export const BASE_PATH = 'http://localhost'.replace(/\/+$/, '')
