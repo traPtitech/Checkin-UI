@@ -1,5 +1,5 @@
 import axios, { AxiosError } from 'axios'
-import { AdminApi, Configuration, CustomerApi, InvoiceApi, ListApi } from './generated'
+import { Apis, Configuration } from './generated'
 import type {
   Customer,
   GetCheckoutSessionsResponse,
@@ -28,10 +28,7 @@ export class ApiClient {
   private axiosInstance = axios.create()
 
   // API インスタンス
-  private customerApi: CustomerApi
-  private invoiceApi: InvoiceApi
-  private listApi: ListApi
-  private adminApi: AdminApi
+  private apis: Apis
 
   private constructor() {
     // 環境変数からベースURLを取得、ない場合はデフォルト値を使用
@@ -39,11 +36,8 @@ export class ApiClient {
       basePath: import.meta.env.VITE_API_BASE_URL || 'http://localhost',
     })
 
-    // 各APIクラスのインスタンスを作成
-    this.customerApi = new CustomerApi(this.config, undefined, this.axiosInstance)
-    this.invoiceApi = new InvoiceApi(this.config, undefined, this.axiosInstance)
-    this.listApi = new ListApi(this.config, undefined, this.axiosInstance)
-    this.adminApi = new AdminApi(this.config, undefined, this.axiosInstance)
+    // 統合APIクラスのインスタンスを作成
+    this.apis = new Apis(this.config, undefined, this.axiosInstance)
 
     // 共通のエラーハンドリングを設定
     this.axiosInstance.interceptors.response.use(
@@ -107,7 +101,7 @@ export class ApiClient {
     email?: string
   }): Promise<Customer> {
     const { customerId, traqId, email } = params
-    const response = await this.customerApi.getCustomer(customerId, traqId, email)
+    const response = await this.apis.getCustomer(customerId, traqId, email)
     return response.data
   }
 
@@ -115,7 +109,7 @@ export class ApiClient {
    * 新しいCustomerを作成する
    */
   public async createCustomer(customerData: PostCustomerRequest): Promise<Customer> {
-    const response = await this.customerApi.postCustomer(customerData)
+    const response = await this.apis.postCustomer(customerData)
     return response.data
   }
 
@@ -123,7 +117,7 @@ export class ApiClient {
    * 既存のCustomerを更新する
    */
   public async updateCustomer(customerData: PostCustomerRequest): Promise<Customer> {
-    const response = await this.customerApi.patchCustomer(customerData)
+    const response = await this.apis.patchCustomer(customerData)
     return response.data
   }
 
@@ -135,7 +129,7 @@ export class ApiClient {
    * 請求書を作成する
    */
   public async createInvoice(invoiceData: PostInvoiceRequest): Promise<Invoice> {
-    const response = await this.invoiceApi.postInvoice(invoiceData)
+    const response = await this.apis.postInvoice(invoiceData)
     return response.data
   }
 
@@ -167,7 +161,7 @@ export class ApiClient {
       collectionMethod,
     } = params
 
-    const response = await this.listApi.getInvoices(
+    const response = await this.apis.getInvoices(
       customerId,
       subscriptionId,
       limit,
@@ -204,7 +198,7 @@ export class ApiClient {
       status,
     } = params
 
-    const response = await this.listApi.getCheckoutSessions(
+    const response = await this.apis.getCheckoutSessions(
       customerId,
       subscriptionId,
       limit,
@@ -225,7 +219,7 @@ export class ApiClient {
    * 管理者一覧を取得する
    */
   public async getAdmins() {
-    const response = await this.adminApi.getAdmins()
+    const response = await this.apis.getAdmins()
     return response.data
   }
 
@@ -233,7 +227,7 @@ export class ApiClient {
    * 管理者を作成する
    */
   public async createAdmin(id: string) {
-    const response = await this.adminApi.postAdmin({ id })
+    const response = await this.apis.postAdmin({ id })
     return response.data
   }
 
@@ -241,7 +235,7 @@ export class ApiClient {
    * 管理者を削除する
    */
   public async deleteAdmin(id: string) {
-    await this.adminApi.deleteAdmin(id)
+    await this.apis.deleteAdmin(id)
     return true
   }
 }
