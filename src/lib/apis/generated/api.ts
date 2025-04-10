@@ -12,8 +12,11 @@
  * Do not edit the class manually.
  */
 
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { Configuration } from './configuration'
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { AxiosPromise, AxiosInstance, RawAxiosRequestConfig } from 'axios'
+// @ts-ignore error happens by importsNotUsedAsValues
 import globalAxios from 'axios'
 // Some imports not used depending on template conditions
 // @ts-ignore
@@ -29,6 +32,7 @@ import {
   toPathString,
   createRequestFunction,
 } from './common'
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { RequestArgs } from './base'
 // @ts-ignore
 import { BASE_PATH, COLLECTION_FORMATS, BaseAPI, RequiredError, operationServerMap } from './base'
@@ -1704,4 +1708,178 @@ export class WebhookApi extends BaseAPI {
       .postWebhookInvoicePaid(stripeSignature, invoice, options)
       .then((request) => request(this.axios, this.basePath))
   }
+}
+
+export class Apis extends BaseAPI {
+    /**
+     *
+     * @summary 管理者を削除
+     * @param {string} id 管理者の traQ ID
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApi
+     */
+    public deleteAdmin(id: string, options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration)
+        .deleteAdmin(id, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary 管理者の一覧を取得
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApi
+     */
+    public getAdmins(options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration)
+        .getAdmins(options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary 管理者を作成
+     * @param {Admin} [admin]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof AdminApi
+     */
+    public postAdmin(admin?: Admin, options?: RawAxiosRequestConfig) {
+        return AdminApiFp(this.configuration)
+        .postAdmin(admin, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary Customer を取得
+     * @param {string} [customerId] Customer ID
+     * @param {string} [traqId] traQ ID
+     * @param {string} [email] Email
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerApi
+     */
+    public getCustomer(customerId?: string, traqId?: string, email?: string, options?: RawAxiosRequestConfig) {
+        return CustomerApiFp(this.configuration)
+        .getCustomer(customerId, traqId, email, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary Customer を更新
+     * @param {PostCustomerRequest} [postCustomerRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerApi
+     */
+    public patchCustomer(postCustomerRequest?: PostCustomerRequest, options?: RawAxiosRequestConfig) {
+        return CustomerApiFp(this.configuration)
+        .patchCustomer(postCustomerRequest, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary Customer を作成
+     * @param {PostCustomerRequest} [postCustomerRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof CustomerApi
+     */
+    public postCustomer(postCustomerRequest?: PostCustomerRequest, options?: RawAxiosRequestConfig) {
+        return CustomerApiFp(this.configuration)
+        .postCustomer(postCustomerRequest, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary Invoice を作成
+     * @param {PostInvoiceRequest} [postInvoiceRequest]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof InvoiceApi
+     */
+    public postInvoice(postInvoiceRequest?: PostInvoiceRequest, options?: RawAxiosRequestConfig) {
+        return InvoiceApiFp(this.configuration)
+        .postInvoice(postInvoiceRequest, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary オンライン決済ページ由来の入金一覧を取得
+     * @param {string} [customerId] Customer ID
+     * @param {string} [subscriptionId] Subscription ID
+     * @param {number} [limit] 取得件数
+     * @param {string} [startingAfter] 指定された ID のオブジェクト以降のオブジェクトを取得
+     * @param {string} [endingBefore] 指定された ID のオブジェクト以前のオブジェクトを取得
+     * @param {string} [paymentIntentId] PaymentIntent ID
+     * @param {GetCheckoutSessionsStatusEnum} [status] Checkout Session のステータス
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListApi
+     */
+    public getCheckoutSessions(customerId?: string, subscriptionId?: string, limit?: number, startingAfter?: string, endingBefore?: string, paymentIntentId?: string, status?: GetCheckoutSessionsStatusEnum, options?: RawAxiosRequestConfig) {
+        return ListApiFp(this.configuration)
+        .getCheckoutSessions(
+        customerId,
+        subscriptionId,
+        limit,
+        startingAfter,
+        endingBefore,
+        paymentIntentId,
+        status,
+        options,
+        )
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary 請求書由来の入金一覧を取得
+     * @param {string} [customerId] Customer ID
+     * @param {string} [subscriptionId] Subscription ID
+     * @param {number} [limit] 取得件数
+     * @param {string} [startingAfter] 指定された ID のオブジェクト以降のオブジェクトを取得
+     * @param {string} [endingBefore] 指定された ID のオブジェクト以前のオブジェクトを取得
+     * @param {GetInvoicesStatusEnum} [status] 請求書ステータス
+     * @param {GetInvoicesCollectionMethodEnum} [collectionMethod] 請求書の支払い方法
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof ListApi
+     */
+    public getInvoices(customerId?: string, subscriptionId?: string, limit?: number, startingAfter?: string, endingBefore?: string, status?: GetInvoicesStatusEnum, collectionMethod?: GetInvoicesCollectionMethodEnum, options?: RawAxiosRequestConfig) {
+        return ListApiFp(this.configuration)
+        .getInvoices(
+        customerId,
+        subscriptionId,
+        limit,
+        startingAfter,
+        endingBefore,
+        status,
+        collectionMethod,
+        options,
+        )
+        .then((request) => request(this.axios, this.basePath))
+    }
+
+    /**
+     *
+     * @summary Webhook の invoice.paid イベントを受け取る
+     * @param {string} stripeSignature Stripe が送信する認証情報
+     * @param {Invoice} [invoice]
+     * @param {*} [options] Override http request option.
+     * @throws {RequiredError}
+     * @memberof WebhookApi
+     */
+    public postWebhookInvoicePaid(stripeSignature: string, invoice?: Invoice, options?: RawAxiosRequestConfig) {
+        return WebhookApiFp(this.configuration)
+        .postWebhookInvoicePaid(stripeSignature, invoice, options)
+        .then((request) => request(this.axios, this.basePath))
+    }
 }

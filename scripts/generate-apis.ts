@@ -6,6 +6,7 @@ import { addApis } from './add-apis'
 import { addTsIgnoreToImports } from './add-ts-ignore-to-imports'
 
 import { fileURLToPath } from 'url'
+import { promisify } from 'util'
 
 const SWAGGER_PATH =
   'https://raw.githubusercontent.com/traPtitech/Checkin-openapi/refs/heads/main/openapi.yaml'
@@ -28,26 +29,21 @@ const __filename = fileURLToPath(import.meta.url)
 
 const __dirname = path.dirname(__filename)
 
+const execAsync = promisify(exec)
+
 ;(async () => {
   await fs.mkdir(path.resolve(__dirname, '../', GENERATED_DIR), {
     recursive: true,
   })
 
-  exec(
-    generateCmd.join(' '),
-    { env: { ...process.env, TS_POST_PROCESS_FILE: 'prettier --write' } },
-    (error, stdout, stderr) => {
-      if (error) {
-        console.error(error.message)
-        return
-      }
-      if (stderr) {
-        console.error(stderr)
-        return
-      }
-      console.log(stdout)
-    },
-  )
+  const { stdout, stderr } = await execAsync(generateCmd.join(' '), {
+    env: { ...process.env, TS_POST_PROCESS_FILE: 'prettier --write' },
+  })
+  if (stderr) {
+    console.error(stderr)
+    return
+  }
+  console.log(stdout)
 
   // generate Apis class
   await addApis(GENERATED_DIR)
