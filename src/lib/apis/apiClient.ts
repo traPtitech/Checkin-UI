@@ -106,37 +106,25 @@ export class ApiClient {
     traqId?: string
     email?: string
   }): Promise<Customer> {
-    try {
-      const { customerId, traqId, email } = params
-      const response = await this.customerApi.getCustomer(customerId, traqId, email)
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const { customerId, traqId, email } = params
+    const response = await this.customerApi.getCustomer(customerId, traqId, email)
+    return response.data
   }
 
   /**
    * 新しいCustomerを作成する
    */
   public async createCustomer(customerData: PostCustomerRequest): Promise<Customer> {
-    try {
-      const response = await this.customerApi.postCustomer(customerData)
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const response = await this.customerApi.postCustomer(customerData)
+    return response.data
   }
 
   /**
    * 既存のCustomerを更新する
    */
   public async updateCustomer(customerData: PostCustomerRequest): Promise<Customer> {
-    try {
-      const response = await this.customerApi.patchCustomer(customerData)
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const response = await this.customerApi.patchCustomer(customerData)
+    return response.data
   }
 
   // --------------------------------
@@ -147,12 +135,8 @@ export class ApiClient {
    * 請求書を作成する
    */
   public async createInvoice(invoiceData: PostInvoiceRequest): Promise<Invoice> {
-    try {
-      const response = await this.invoiceApi.postInvoice(invoiceData)
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const response = await this.invoiceApi.postInvoice(invoiceData)
+    return response.data
   }
 
   // --------------------------------
@@ -173,31 +157,27 @@ export class ApiClient {
       collectionMethod?: GetInvoicesCollectionMethodEnum
     } = {},
   ): Promise<Invoice> {
-    try {
-      const {
-        customerId,
-        subscriptionId,
-        limit,
-        startingAfter,
-        endingBefore,
-        status,
-        collectionMethod,
-      } = params
+    const {
+      customerId,
+      subscriptionId,
+      limit,
+      startingAfter,
+      endingBefore,
+      status,
+      collectionMethod,
+    } = params
 
-      const response = await this.listApi.getInvoices(
-        customerId,
-        subscriptionId,
-        limit,
-        startingAfter,
-        endingBefore,
-        status,
-        collectionMethod,
-      )
+    const response = await this.listApi.getInvoices(
+      customerId,
+      subscriptionId,
+      limit,
+      startingAfter,
+      endingBefore,
+      status,
+      collectionMethod,
+    )
 
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    return response.data
   }
 
   /**
@@ -214,31 +194,27 @@ export class ApiClient {
       status?: GetCheckoutSessionsStatusEnum
     } = {},
   ): Promise<GetCheckoutSessionsResponse> {
-    try {
-      const {
-        customerId,
-        subscriptionId,
-        limit,
-        startingAfter,
-        endingBefore,
-        paymentIntentId,
-        status,
-      } = params
+    const {
+      customerId,
+      subscriptionId,
+      limit,
+      startingAfter,
+      endingBefore,
+      paymentIntentId,
+      status,
+    } = params
 
-      const response = await this.listApi.getCheckoutSessions(
-        customerId,
-        subscriptionId,
-        limit,
-        startingAfter,
-        endingBefore,
-        paymentIntentId,
-        status,
-      )
+    const response = await this.listApi.getCheckoutSessions(
+      customerId,
+      subscriptionId,
+      limit,
+      startingAfter,
+      endingBefore,
+      paymentIntentId,
+      status,
+    )
 
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    return response.data
   }
 
   // --------------------------------
@@ -249,36 +225,24 @@ export class ApiClient {
    * 管理者一覧を取得する
    */
   public async getAdmins() {
-    try {
-      const response = await this.adminApi.getAdmins()
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const response = await this.adminApi.getAdmins()
+    return response.data
   }
 
   /**
    * 管理者を作成する
    */
   public async createAdmin(id: string) {
-    try {
-      const response = await this.adminApi.postAdmin({ id })
-      return response.data
-    } catch (error) {
-      throw error
-    }
+    const response = await this.adminApi.postAdmin({ id })
+    return response.data
   }
 
   /**
    * 管理者を削除する
    */
   public async deleteAdmin(id: string) {
-    try {
-      await this.adminApi.deleteAdmin(id)
-      return true
-    } catch (error) {
-      throw error
-    }
+    await this.adminApi.deleteAdmin(id)
+    return true
   }
 }
 
