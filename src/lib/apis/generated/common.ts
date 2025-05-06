@@ -12,9 +12,13 @@
  * Do not edit the class manually.
  */
 
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { Configuration } from './configuration'
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { RequestArgs } from './base'
+// @ts-ignore error happens by importsNotUsedAsValues
 import type { AxiosInstance, AxiosResponse } from 'axios'
+// @ts-ignore error happens by importsNotUsedAsValues
 import { RequiredError } from './base'
 
 /**
