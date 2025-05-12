@@ -1,13 +1,18 @@
 <script setup lang="ts">
+import { useAuthStore } from '@/stores/auth'
+import { useVerifiedEmailStore } from '@/stores/verifiedEmail'
 import { computed, ref } from 'vue'
 import { useRoute } from 'vue-router'
 
 import MemberShipPageVerifyEmailLink from '@/pages/membership/MembershipPageVerifyEmailLink.vue'
+import { storeToRefs } from 'pinia'
 import MemberShipPageUserTypeSelector from './MemberShipPageUserTypeSelector.vue'
 import MembershipPageInputText from './MembershipPageInputText.vue'
 import MembershipPageLoginLink from './MembershipPageLoginLink.vue'
 
 const route = useRoute()
+const { isLoggedIn, loggedInTraqId } = storeToRefs(useAuthStore())
+const { verifiedEmail, hasVerifiedEmail } = storeToRefs(useVerifiedEmailStore())
 
 const isUserTypeNew = computed(() => route.query.user_type === 'new')
 const isUserTypeRejoin = computed(() => route.query.user_type === 'rejoin')
@@ -16,17 +21,15 @@ const isUserTypeQueryValid = computed(
   () => isUserTypeNew.value || isUserTypeRejoin.value || isUserTypeActive.value,
 )
 
-const isLoggedIn = ref(false)
-const hasVerifiedMailAddress = ref(true)
 const hasCustomerObjectOnTraqId = ref(false)
 const shouldShowUserTypeSelector = computed(() => !isLoggedIn.value)
 const needUserTypeSelect = computed(() => !isLoggedIn.value && !isUserTypeQueryValid.value)
 const needMailAddressInput = computed(
   () =>
-    (isLoggedIn.value && !hasCustomerObjectOnTraqId.value && !hasVerifiedMailAddress.value) ||
+    (isLoggedIn.value && !hasCustomerObjectOnTraqId.value && !hasVerifiedEmail.value) ||
     (!isLoggedIn.value &&
       (isUserTypeNew.value || isUserTypeRejoin.value) &&
-      !hasVerifiedMailAddress.value),
+      !hasVerifiedEmail.value),
 )
 const needLogin = computed(() => isUserTypeActive.value && !isLoggedIn.value)
 
@@ -37,10 +40,10 @@ const hasCustomerObject = computed(
 )
 const canShowInvoiceForm = computed(
   () =>
-    (isLoggedIn.value && (hasCustomerObjectOnTraqId.value || hasVerifiedMailAddress.value)) ||
+    (isLoggedIn.value && (hasCustomerObjectOnTraqId.value || hasVerifiedEmail.value)) ||
     (!isLoggedIn.value &&
       (isUserTypeNew.value || isUserTypeRejoin.value) &&
-      hasVerifiedMailAddress.value),
+      hasVerifiedEmail.value),
 )
 const needTraqIdInput = computed(
   () =>

@@ -7,3 +7,7 @@ export const parseRouteQuery = (query: LocationQueryValue | LocationQueryValue[]
     return typeof query === 'string' ? [query] : ['']
   }
 }
+
+export const parseRedirectQuery = (query: LocationQueryValue | LocationQueryValue[]) => {
+  return parseRouteQuery(query)[0] || '/'
+}
