@@ -41,7 +41,7 @@
     "tsx": "^4.20.3",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
-    "vite-plugin-vue-devtools": "^7.7.7",
+    "vite-plugin-vue-devtools": "^8.0.0",
     "vue-tsc": "^3.0.4"
   },
   "msw": {
