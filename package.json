@@ -31,7 +31,7 @@
     "@vue/eslint-config-prettier": "^10.2.0",
     "@vue/eslint-config-typescript": "^14.7.0",
     "@vue/tsconfig": "^0.9.1",
-    "eslint": "^9.39.2",
+    "eslint": "^10.1.0",
     "eslint-plugin-vue": "^10.8.0",
     "msw": "^2.12.14",
     "npm-run-all2": "^8.0.4",
