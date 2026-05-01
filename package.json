@@ -33,7 +33,7 @@
     "@vue/tsconfig": "^0.9.1",
     "eslint": "^10.1.0",
     "eslint-plugin-vue": "^10.8.0",
-    "msw": "^2.12.14",
+    "msw": "^2.14.2",
     "npm-run-all2": "^8.0.4",
     "prettier": "^3.8.1",
     "tailwindcss": "^4.1.3",
