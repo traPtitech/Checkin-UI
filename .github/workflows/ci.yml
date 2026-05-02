@@ -23,6 +23,7 @@ jobs:
           restore-keys: |
             eslint-cache-${{ runner.os }}-
       - run: pnpm run lint:no-fix --max-warnings=0
+      - uses: reviewdog/action-actionlint@v1
 
   format:
     runs-on: ubuntu-latest
