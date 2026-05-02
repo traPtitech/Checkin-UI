@@ -22,7 +22,7 @@ jobs:
             'eslint.config.mjs', 'pnpm-lock.yaml') }}
           restore-keys: |
             eslint-cache-${{ runner.os }}-
-      - run: pnpm run lint:no-fix -- --max-warnings=0
+      - run: pnpm run lint:no-fix --max-warnings=0
 
   format:
     runs-on: ubuntu-latest
