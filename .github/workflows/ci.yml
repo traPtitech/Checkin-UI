@@ -1,0 +1,74 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - name: restore ESLint cache
+        uses: actions/cache@v5
+        with:
+          path: .eslintcache
+          key: eslint-cache-${{ runner.os }}-${{ hashFiles(
+            'eslint.config.mjs', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            eslint-cache-${{ runner.os }}-
+      - run: pnpm run lint:no-fix --max-warnings=0
+      - uses: reviewdog/action-actionlint@v1
+
+  format:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - name: restore Prettier cache
+        uses: actions/cache@v5
+        with:
+          path: node_modules/.cache/prettier
+          key: prettier-cache-${{ runner.os }}-${{ hashFiles(
+            '.prettierrc', '.prettierignore', 'pnpm-lock.yaml') }}
+          restore-keys: |
+            prettier-cache-${{ runner.os }}-
+      - run: pnpm run format:check --cache
+        # prettierのキャッシュはプラグインのバージョンと実装がキャッシュキーに使用されません。
+        # そのため、プラグインの確認がないパッケージスクリプトではキャッシュを有効化できませんが、
+        # CIではキャッシュキーにlockfileを使用できるため、キャッシュを有効化します。
+        # ref: https://prettier.io/docs/cli#--cache
+
+  typecheck:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - run: pnpm run typecheck
+
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - run: pnpm run build
+
+  test:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - run: pnpm run test
+
+  test-e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - run: pnpm exec playwright install --with-deps
+      - run: pnpm run test:e2e

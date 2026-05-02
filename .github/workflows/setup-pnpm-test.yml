@@ -1,0 +1,20 @@
+name: setup-pnpm-test
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+jobs:
+  test-setup:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v6
+      - uses: ./.github/actions/setup-pnpm
+      - name: Verify node_modules
+        run: test -d node_modules
+      - name: Verify node version
+        run: node -v | grep $(cat .node-version)
