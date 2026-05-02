@@ -9,6 +9,16 @@ export default defineNuxtConfig({
     '@nuxtjs/color-mode',
     '@pinia/nuxt',
     '@nuxt/icon',
-    '@vueuse/nuxt'
-  ]
+    '@vueuse/nuxt',
+  ],
+
+  typescript: {
+    tsConfig: {
+      typeCheck: true,
+      vueCompilerOptions: {
+        strictTemplates: true,
+        fallthroughAttributes: true,
+      },
+    },
+  },
 })
