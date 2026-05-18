@@ -13,8 +13,8 @@ export default defineNuxtConfig({
   ],
 
   typescript: {
+    typeCheck: true,
     tsConfig: {
-      typeCheck: true,
       vueCompilerOptions: {
         strictTemplates: true,
         fallthroughAttributes: true,
